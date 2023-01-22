@@ -23,7 +23,7 @@ const addPost = async (req, res) => {
 
   const { ...returnObject } = post._doc;
   delete returnObject.__v;
-  res.status(StatusCodes.CREATED).json({ post: returnObject });
+  res.status(StatusCodes.CREATED).json(returnObject);
 };
 
 const getPosts = async (req, res) => {
@@ -77,7 +77,7 @@ const getPosts = async (req, res) => {
     return postsWithoutV;
   });
 
-  res.status(StatusCodes.OK).json({ posts: returnPosts });
+  res.status(StatusCodes.OK).json(returnPosts);
 };
 
 const getPost = async (req, res) => {
@@ -109,7 +109,7 @@ const getPost = async (req, res) => {
     returnObject.endDate = `${returnStringMonths} ${returnStringDays}`;
   }
 
-  res.status(StatusCodes.OK).json({ post: returnObject });
+  res.status(StatusCodes.OK).json(returnObject);
 };
 
 module.exports = { addPost, getPosts, getPost };

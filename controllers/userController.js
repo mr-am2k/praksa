@@ -11,7 +11,7 @@ const registerUser = async (req, res) => {
     const user = await User.create(sentUser);
     const {...returnObject} = user._doc;
     delete returnObject.__v
-    res.status(StatusCodes.CREATED).json({user:returnObject})
+    res.status(StatusCodes.CREATED).json(returnObject)
 }
 
 const loginUser = async (req, res) => {
@@ -24,7 +24,7 @@ const loginUser = async (req, res) => {
     const {...returnObject} = exists._doc
     delete returnObject.__v
   
-    res.status(StatusCodes.OK).json({user:returnObject})
+    res.status(StatusCodes.OK).json(returnObject)
 }
 
 module.exports = {registerUser, loginUser}
