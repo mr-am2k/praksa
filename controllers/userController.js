@@ -10,6 +10,7 @@ const registerUser = async (req, res) => {
     }
     const user = await User.create(sentUser);
     const {...returnObject} = user._doc;
+    delete returnObject.__v
     res.status(StatusCodes.CREATED).json({user:returnObject})
 }
 
@@ -21,6 +22,7 @@ const loginUser = async (req, res) => {
         return res.status(StatusCodes.BAD_REQUEST).json({message: "Ne postoji korisnik sa tim podacima"})
     }
 
+    delete exists.__v
     res.status(StatusCodes.OK).json({user:exists})
 }
 
