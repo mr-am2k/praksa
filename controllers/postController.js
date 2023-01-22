@@ -27,7 +27,25 @@ const addPost = async (req, res) => {
 };
 
 const getPosts = async (req, res) => {
-  const foundPosts = await Post.find({});
+  const { location, company, technologies } = req.body;
+
+  let filters = {};
+
+  if (location) {
+    filters.location = { $regex: new RegExp(location, 'i') };
+  }
+
+  if (company) {
+    filters.company = { $regex: new RegExp(company, 'i') };
+  }
+
+  if (technologies && technologies.length > 0) {
+    filters.technologies = {
+      $in: technologies.map(tech => new RegExp(tech, 'i')),
+    };
+  }
+
+  const foundPosts = await Post.find(filters);
 
   const returnPosts = foundPosts.map(post => {
     const { __v, ...restOfTheObject } = post;
