@@ -16,14 +16,15 @@ const registerUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
     const sentUser = req.body
-    const exists = await User.find({"username": sentUser.username, "password": sentUser.password})
-    console.log(exists)
-    if(!exists.length){
+    const exists = await User.findOne({"username": sentUser.username, "password": sentUser.password})
+    if(exists === null){
         return res.status(StatusCodes.BAD_REQUEST).json({message: "Ne postoji korisnik sa tim podacima"})
     }
 
-    delete exists.__v
-    res.status(StatusCodes.OK).json({user:exists})
+    const {...returnObject} = exists._doc
+    delete returnObject.__v
+  
+    res.status(StatusCodes.OK).json({user:returnObject})
 }
 
 module.exports = {registerUser, loginUser}
