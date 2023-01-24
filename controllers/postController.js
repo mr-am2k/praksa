@@ -4,7 +4,13 @@ const User = require('../models/User');
 
 const addPost = async (req, res) => {
   let sentPost = req.body;
-  sentPost.endDate = new Date(sentPost.endDate);
+  const dateFields = sentPost.endDate.split('/');
+
+  const day = parseInt(dateFields[0]);
+  const month = parseInt(dateFields[1]) - 1;
+  const year = parseInt(dateFields[2]);
+
+  sentPost.endDate = new Date(year, month, day);
 
   try {
     const userExists = await User.findById(sentPost.user);
@@ -157,9 +163,9 @@ const getMyPosts = async (req, res) => {
 const deletePost = async (req, res) => {
   const postId = req.params.postId;
 
-  await Post.findByIdAndDelete({_id: postId});
+  await Post.findByIdAndDelete({ _id: postId });
 
-  res.status(StatusCodes.OK).json(true)
+  res.status(StatusCodes.OK).json(true);
 };
 
 module.exports = { addPost, getPosts, getPost, getMyPosts, deletePost };
