@@ -4,6 +4,7 @@ const {addPost, getPost, getPosts,getMyPosts, deletePost} = require('../controll
 
 router.post('/', addPost)
 router.get('/', getPosts)
+router.get('/:location&:company&:position', getPosts)
 router.get('/:postId', getPost)
 router.get('/my-posts/:userId', getMyPosts)
 router.delete('/:postId', deletePost)

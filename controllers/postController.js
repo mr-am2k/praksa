@@ -33,23 +33,21 @@ const addPost = async (req, res) => {
 };
 
 const getPosts = async (req, res) => {
-  const { location, company, technologies } = req.body;
+  const { location, company, position } = req.params;
 
   let filters = {};
   const now = new Date();
-
-  if (location) {
+  
+  if (location && location !== 'null') {
     filters.location = { $regex: new RegExp(location, 'i') };
   }
 
-  if (company) {
+  if (company && company !== 'null') {
     filters.company = { $regex: new RegExp(company, 'i') };
   }
 
-  if (technologies && technologies.length > 0) {
-    filters.technologies = {
-      $in: technologies.map(tech => new RegExp(tech, 'i')),
-    };
+  if (position && position !== 'null') {
+    filters.position = { $regex: new RegExp(position, 'i') };
   }
 
   filters.endDate = { $gt: now };
