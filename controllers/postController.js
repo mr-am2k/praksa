@@ -66,11 +66,12 @@ const getPosts = async (req, res) => {
 
     if (diffInDays < 30) {
       const returnStringDays =
-        diffInDays == 1 ? `${diffInDays} dan` : `${diffInDays} dana`;
+        diffInDays == 1 ? `${diffInDays.toFixed(0)} dan` : `${diffInDays.toFixed(0)} dana`;
       postsWithoutV.endDate = returnStringDays;
     } else {
       const months = diffInDays / 30;
       const days = diffInDays % 30;
+      console.log(days)
       const returnStringMonths =
         months.toFixed(0) == 1
           ? `${months.toFixed(0)} mjesec`
