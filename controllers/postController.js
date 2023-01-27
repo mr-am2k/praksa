@@ -102,7 +102,7 @@ const getPost = async (req, res) => {
 
   if (diffInDays < 30) {
     const returnStringDays =
-      diffInDays == 1 ? `${diffInDays} dan` : `${diffInDays} dana`;
+      diffInDays == 1 ? `${diffInDays.toFixed(0)} dan` : `${diffInDays.toFixed(0)} dana`;
     returnObject.endDate = returnStringDays;
   } else {
     const months = diffInDays / 30;
@@ -138,7 +138,7 @@ const getMyPosts = async (req, res) => {
 
     if (diffInDays < 30) {
       const returnStringDays =
-        diffInDays == 1 ? `${diffInDays} dan` : `${diffInDays} dana`;
+        diffInDays == 1 ? `${diffInDays.toFixed(0)} dan` : `${diffInDays.toFixed(0)} dana`;
       postsWithoutV.endDate = returnStringDays;
     } else {
       const months = diffInDays / 30;
